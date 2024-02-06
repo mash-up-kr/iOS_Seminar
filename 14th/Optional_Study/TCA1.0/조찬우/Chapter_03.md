@@ -26,13 +26,14 @@
     ```
     위 함수는 시그니쳐를 볼 때 Void를 전달받아 Int 타입을 반환해주기에 내부 구현을 보더라도 1이라는 Int 값을 리턴해주는것을 볼 수 있음
     즉 순수하다는 소리!
+    
     ```swift
     func getNumber() -> Int {
       print("1")
       return 1
     }
     ```
-    위 함수는 시그쳐를 볼때 Voide를 전달받아 Int 타입을 반환해주는것만을 우리는 의도하는데 내부에선 print가 되고 있음
+    위 함수는 시그쳐를 볼때 Void를 전달받아 Int 타입을 반환해주는것만을 우리는 의도하는데 내부에선 print가 되고 있음
     즉, 예상과는 다른 작업을 하기에 순수하지 않음
   - 결국 TCA에서도 비동기 작업같은 Side Effect의 처리는 별도로 수행하고 그 결과를 다시 Action으로 반환하여 생성된 또 다른 Action이 리듀서에서 처리되어 State를 업데이트함으로 순수함을 가짐
   - 중요한건 Effect 자체가 순수한것이 아닌 순수하도록 Side Effect를 관리하는것으로 설계됨
@@ -47,7 +48,7 @@
     ```swift
     case .incrementButtonTapped:
       state.count += 1
-      return .non
+      return .none
     ```
   - .send
     - 파라미터로 Action을 넣어줌으로 현재 Action에서 로직 처리 후 추가로 다른 Action의 처리가 동기적으로 필요할 때 사용함
@@ -185,7 +186,7 @@
     public typealias StoreOf<R: Reducer> = Store<R.State, R.Action>
     let store: StoreOf<CounterFeature>
     ```
-    이렇게 StoreO로 축약해서 사용할 수 있음
+    이렇게 StoreOf로 축약해서 사용할 수 있음
 ***
 - ### scope(state:action:)
   - Store에서 어떻게 보면 가장 핵심인 scope 메서드!
