@@ -137,6 +137,14 @@
   ```
   - 결국 이렇게 body 프로퍼티를 구성할때 WithViewStore로 스토어를 지정해줘야하는데 위에서 이미 자식 State의 nil여부에 따라 store를 구성했기에 넣어주면 가능한듯
   - 이렇게 WithViewStore를 지정해준다면 옵셔널 여부에 따라 중복 제거도 되고 그런듯
+  - 1.7에서 이마저도 Deprecated되어서 이제 아래처럼 사용해야함
+  ```swift
+  if let childStore = store.scope(state: \.child, action: \.child) {
+  ChildView(store: childStore)
+  } else {
+  Text("Nothing to show")
+  }
+  ```
 ***
 - ### forEach
   - 부모 도메인에 부모 State의 컬렉션 요소에서 작동하는 자식 리듀서를 포함하는 기능
@@ -182,16 +190,6 @@
   - toElementAction은 자식 액션의 케이스 패스
   - element는 자식 리듀서
   - 반환값으로는 where절을 만족시키면 자식 리듀서와 부모 리듀서를 결합한 리듀서를 반환하게됨
-  - 근데 ifLetStore 현 시점에서 Deprecated 됨...... (1.7에서)
-  - 그냥 뷰에서는 아래와 같이 쓰라고 명시함
-  ```swift
-  if let childStore = store.scope(state: \.child, action: \.child) {
-  ChildView(store: childStore)
-  } else {
-  Text("Nothing to show")
-  }
-  ```
-  - 사실 사용에서 큰 차이는 없다.
 ***
 - ### ForEachStore
   - 배열된 State를 순회하면서 각 항목에 대한 뷰를 생성하는데 사용됨
@@ -224,6 +222,16 @@
   - 초기화 메서드에서 store는 위 사용부처럼 자식 상태와 액션으로 스코핑된 store로 넣음
   - content는 각 요소에 대한 뷰를 반환하도록 함
   - 사실 이후 내부 구현들을 더 자세히 알아봐도 되지만 1.7에서 Deprecated됨ㅎ... 그래서 스킵합니다~
+  - 이젠 아래처럼 사용해야함!
+  ```swift
+  ForEach(
+    store.scope(state: \.rows, action: \.rows),
+    id: \.state.id
+  ) { childStore in
+    ChildView(store: childStore)
+  }
+  ```
+  - 사용 시 각 행의 상태 ID에 의존하지 않는 경우에는 ID 매개 변수도 생략 가능
 ***
 - ### ifCaseLet
 - 부모 State가 enum 타입이고 각 여러 자식 State들을 가질 때, 특정 케이스에 대해 자식 리듀서를 실행하도록 함
