@@ -53,7 +53,7 @@
 ### 스택 기반 Navigation
   - 상태 존재 여부를 컬렉션 타입으로 표현하는 방식
   - SwiftUI의 NavigationStack에서 활용되는것과 동일
-  - 스택 내 네비게이션 가능한 모든것들을 열거형형으로 정의할 수 있음
+  - 스택 내 네비게이션 가능한 모든것들을 열거형으로 정의할 수 있음
   ```swift
   enum Path { 
     case item(ItemFeature.State)
@@ -333,7 +333,7 @@ await store.send(.destination(.presented(.counter(.incrementButtonTapped)))) {
   }
 }
   ```
-  - 해당 함수는 첫번째 매개변수로 inout 형태의 enum 상태 변수를 받고 두번째로는 케이스패스를 받아 케이스 패스를 활용해 해당 케이스이 payload를 추출하여 수정 및 데이터를 다시 enum에 재삽입하는 과정을 거침
+  - 해당 함수는 첫번째 매개변수로 inout 형태의 enum 상태 변수를 받고 두번째로는 케이스패스를 받아 케이스패스를 활용해 해당 케이스의 payload를 추출하여 수정 및 데이터를 다시 enum에 재삽입하는 과정을 거침
 ***
 ### 스택 기반 Navigation 톺아보기
   - 컬렉션 상태를 사용해 네비게이션을 모델링하는 방식
