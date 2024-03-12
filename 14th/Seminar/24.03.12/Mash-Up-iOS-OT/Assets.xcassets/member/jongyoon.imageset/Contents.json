@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "jongyoon.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
